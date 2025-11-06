@@ -1,0 +1,12 @@
+[
+  { "title": "Locksmithing", "path": "/services/locksmithing", "summary": "Rekeys, smart locks, emergency lockouts" },
+  { "title": "Electrical", "path": "/services/electrical", "summary": "Panels, lighting, EV chargers, troubleshooting" },
+  { "title": "Access Control", "path": "/services/access-control", "summary": "Keypads, card readers, intercoms, door strikes" },
+  { "title": "Security Systems", "path": "/services/security-systems", "summary": "CCTV, NVRs, alarms, monitoring-ready" },
+  { "title": "Fire Alarm", "path": "/services/fire-alarm", "summary": "Detectors, pull stations, inspection-ready installs" },
+  { "title": "Data/Low Voltage", "path": "/services/data-low-voltage", "summary": "Cat6, racks, patch panels, Wi‑Fi coverage" },
+  { "title": "TV Mounting", "path": "/services/tv-mounting", "summary": "Hidden wires, soundbars, secure mounts" },
+  { "title": "Electronic Repairs", "path": "/services/electronic-repairs", "summary": "Boards, soldering, diagnostics" }
+]
+
+
