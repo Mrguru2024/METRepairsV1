@@ -1,0 +1,374 @@
+{
+  "project_name": "MET Repairs — Service & Systems Integrations Website",
+  "version": "1.0.0",
+  "owner": {
+    "company": "MET Repairs",
+    "domain": "metrepairs.com",
+    "contact_email": "mytech@metrepairs.com"
+  },
+  "goals": [
+    "Offer one-tap access to Services, Booking/Consultation, Quotes, and Questions/Support.",
+    "Position MET Repairs as a multi-trade provider: Locksmithing, Electronic Repairs, TV Mounting, Electrician Services, Access Control, Security Systems, Fire Alarm, Data/Low-Voltage, Full System Integrations.",
+    "Outperform competitors with a clean, modern, credible design and clear CTAs that convert."
+  ],
+  "primary_audience": [
+    "Homeowners and renters in Metro Atlanta seeking fast, reliable service.",
+    "Small–mid businesses needing access control, CCTV, alarms, wiring, and integrations.",
+    "Property managers, realtors, facility managers requiring ongoing service contracts."
+  ],
+  "value_props": [
+    "Multi-trade, single-vendor convenience (locksmith + electrical + low-voltage).",
+    "Licensed, audit-ready installations with clear documentation.",
+    "Fast scheduling, transparent quotes, secure online payments."
+  ],
+  "brand": {
+    "tone": ["professional", "trustworthy", "problem-solving", "no fluff"],
+    "colors": {
+      "primary": "#0B41E4",
+      "secondary": "#4AE66C",
+      "neutral_dark": "#0F172A",
+      "neutral_light": "#F8FAFC",
+      "accent": "#FFB020"
+    },
+    "typography": {
+      "heading": "Inter",
+      "body": "Inter",
+      "scale": ["text-base", "text-lg", "text-xl", "text-2xl", "text-4xl"]
+    },
+    "imagery": ["on-site work, tools, before/after installs, team, vehicles, job sites"],
+    "trust_signals": ["badges: Licensed/Insured", "Satisfaction guarantee", "5-star reviews"]
+  },
+  "tech_stack": {
+    "frontend": {
+      "framework": "Next.js 15 (App Router, TypeScript)",
+      "ui": ["Tailwind CSS", "shadcn/ui", "Framer Motion"],
+      "forms": ["React Hook Form", "Zod validation"]
+    },
+    "backend": {
+      "runtime": "Next.js Route Handlers / Edge Functions",
+      "db": "None for v1 (send leads to CRM/Email). Optional: Supabase or MySQL for v1.1",
+      "email": "Brevo (SMTP/API) for transactional mail",
+      "payments": "Stripe (service deposits / invoice links)"
+    },
+    "infra": {
+      "hosting": "Vercel",
+      "dns": "Hostinger (A/AAAA/CNAME to Vercel)",
+      "media": "Vercel Blob or Cloudinary (optional)"
+    },
+    "analytics": {
+      "primary": "Plausible or GA4",
+      "heatmaps": "Optional: Microsoft Clarity"
+    },
+    "seo": {
+      "sitemap": true,
+      "robots": true,
+      "structured_data": true,
+      "metadata": "Next.js metadata API"
+    }
+  },
+  "navigation_IA": [
+    { "label": "Home", "path": "/" },
+    { "label": "Services", "path": "/services" },
+    { "label": "Booking", "path": "/booking" },
+    { "label": "Get a Quote", "path": "/quote" },
+    { "label": "Projects", "path": "/projects" },
+    { "label": "Reviews", "path": "/reviews" },
+    { "label": "Resources", "path": "/resources" },
+    { "label": "About", "path": "/about" },
+    { "label": "Contact", "path": "/contact" }
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "purpose": "Hero with primary CTA to Booking and secondary CTA to Quote; service highlights; trust badges; service area; recent projects; reviews; quick contact bar.",
+      "sections": [
+        "Hero: headline + subcopy + buttons (Book Now, Get a Quote)",
+        "Service Grid: Locksmith, Electrical, Access Control, Security, Fire Alarm, Data",
+        "Why Us: 3-4 proof points (Licensed/Insured, Fast Response, Multi-trade)",
+        "Recent Projects: 3 cards with images and outcomes",
+        "Reviews: pulled from JSON file (v1) or CMS (v1.1)",
+        "Service Area Map + Hours",
+        "Footer: contact, socials, legal"
+      ]
+    },
+    {
+      "path": "/services",
+      "purpose": "Overview of all service categories and detail pages.",
+      "children": [
+        { "path": "/services/locksmithing" },
+        { "path": "/services/electrical" },
+        { "path": "/services/access-control" },
+        { "path": "/services/security-systems" },
+        { "path": "/services/fire-alarm" },
+        { "path": "/services/data-low-voltage" },
+        { "path": "/services/tv-mounting" },
+        { "path": "/services/electronic-repairs" }
+      ]
+    },
+    {
+      "path": "/booking",
+      "purpose": "Self-serve scheduling (consultations/onsite).",
+      "integrations": ["Cal.com or Calendly free tier"],
+      "requirements": [
+        "Embed calendar widget",
+        "Service type selector",
+        "Pre-visit questionnaire (address, access, scope, photos upload optional)"
+      ]
+    },
+    {
+      "path": "/quote",
+      "purpose": "Lead form for scoped quotes with file/photo upload.",
+      "form_fields": [
+        "Full name",
+        "Email",
+        "Phone",
+        "Service category (enum)",
+        "Address + Zip",
+        "Scope description",
+        "Budget range (optional)",
+        "Photo/Document upload",
+        "Preferred date/time"
+      ],
+      "logic": [
+        "Validate with Zod",
+        "Send to Brevo + internal email",
+        "Optional: create Stripe payment link for deposit (v1.1)"
+      ]
+    },
+    {
+      "path": "/projects",
+      "purpose": "Case studies with problem → solution → outcome → tech used.",
+      "data_source": "Static JSON (v1); CMS (v1.1)"
+    },
+    {
+      "path": "/reviews",
+      "purpose": "Social proof; import from Google/FB manually for v1.",
+      "data_source": "Static JSON; CMS later"
+    },
+    {
+      "path": "/resources",
+      "purpose": "Guides, checklists (e.g., pre-wire checklist, security audit basics).",
+      "data_source": "MDX pages"
+    },
+    {
+      "path": "/about",
+      "purpose": "Founder story, credentials, insurance, safety training, community work."
+    },
+    {
+      "path": "/contact",
+      "purpose": "Simple contact form + map + phone + hours + emergency line."
+    }
+  ],
+  "components": [
+    "HeaderNav (sticky, mobile drawer)",
+    "HeroSection (split layout, CTA buttons)",
+    "ServiceCardGrid (animated)",
+    "CTA_Bar (phone, book, quote)",
+    "TestimonialCarousel",
+    "ProjectCard",
+    "Pricing/Deposit Callout (optional)",
+    "Steps/Process Timeline",
+    "FAQ Accordion",
+    "Footer (contact, service areas, quick links)"
+  ],
+  "forms_and_endpoints": {
+    "quote_submit": {
+      "route": "POST /api/quote",
+      "validation": "Zod schema",
+      "actions": [
+        "Send confirmation to user via Brevo",
+        "Send lead to mytech@metrepairs.com (Brevo SMTP/API)",
+        "Store JSON backup to /data/leads (file) or Supabase (v1.1)"
+      ]
+    },
+    "contact_submit": {
+      "route": "POST /api/contact",
+      "validation": "Zod schema",
+      "actions": [
+        "Email notification (Brevo)",
+        "Spam check (Honeypot + rate limit)"
+      ]
+    },
+    "booking_webhook": {
+      "route": "POST /api/booking/webhook",
+      "source": "Cal.com/Calendly",
+      "actions": ["Send confirmation email", "Append to simple JSON log (v1)"]
+    }
+  },
+  "data_models_v1_1_optional": {
+    "Lead": {
+      "id": "uuid",
+      "createdAt": "datetime",
+      "name": "string",
+      "email": "string",
+      "phone": "string",
+      "service": "enum(ServiceCategory)",
+      "address": "string",
+      "zip": "string",
+      "description": "text",
+      "budget": "string|null",
+      "preferredTime": "string|null",
+      "attachments": "string[] (URLs)"
+    },
+    "ServiceCategory": [
+      "LOCKSMITHING",
+      "ELECTRICAL",
+      "ACCESS_CONTROL",
+      "SECURITY_SYSTEMS",
+      "FIRE_ALARM",
+      "DATA_LOW_VOLTAGE",
+      "TV_MOUNTING",
+      "ELECTRONIC_REPAIRS"
+    ]
+  },
+  "seo": {
+    "site_title": "MET Repairs — Locksmith, Electrical, Security, Fire Alarm & Data",
+    "site_description": "One trusted team for locksmithing, electrical, access control, security cameras, fire alarm, and data cabling. Book service, request a quote, or get help now.",
+    "keywords": [
+      "locksmith Atlanta",
+      "electrician Atlanta",
+      "access control installer",
+      "security camera install",
+      "fire alarm installer",
+      "low voltage cabling",
+      "TV mounting"
+    ],
+    "local_business_schema": {
+      "@type": "LocalBusiness",
+      "name": "MET Repairs",
+      "url": "https://metrepairs.com",
+      "areaServed": "Metro Atlanta",
+      "telephone": "+1-XXX-XXX-XXXX",
+      "sameAs": [],
+      "openingHoursSpecification": [
+        { "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+        { "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "16:00" }
+      ],
+      "department": [
+        { "@type": "HomeAndConstructionBusiness", "name": "Electrical Services" },
+        { "@type": "Locksmith", "name": "Locksmithing" },
+        { "@type": "SecuritySystem", "name": "Security Systems" }
+      ]
+    },
+    "page_level_schema": [
+      { "path": "/services/locksmithing", "@type": "Service", "serviceType": "Locksmithing" },
+      { "path": "/services/electrical", "@type": "Service", "serviceType": "Electrical" },
+      { "path": "/services/access-control", "@type": "Service", "serviceType": "Access Control" },
+      { "path": "/services/security-systems", "@type": "Service", "serviceType": "Security Systems" },
+      { "path": "/services/fire-alarm", "@type": "Service", "serviceType": "Fire Alarm Installation" },
+      { "path": "/services/data-low-voltage", "@type": "Service", "serviceType": "Data/Low Voltage" }
+    ]
+  },
+  "performance": {
+    "targets": {
+      "lighthouse": { "performance": 90, "accessibility": 95, "best_practices": 95, "seo": 95 },
+      "ttfb_ms": 200,
+      "lcp_s": 2.0,
+      "cls": 0.05
+    },
+    "practices": [
+      "Image optimization with next/image",
+      "Static/ISR where possible",
+      "Edge routing for forms if light",
+      "Lazy-load below-the-fold sections"
+    ]
+  },
+  "accessibility": {
+    "standards": "WCAG 2.2 AA",
+    "requirements": [
+      "Semantic HTML, labeled form inputs",
+      "Focusable, visible keyboard outlines",
+      "Color contrast AA+",
+      "ARIA for accordions, carousels"
+    ]
+  },
+  "security": {
+    "headers": [
+      "Content-Security-Policy (allow Brevo, Calendly/Cal.com, Stripe as needed)",
+      "X-Frame-Options: DENY",
+      "Strict-Transport-Security",
+      "Referrer-Policy: strict-origin-when-cross-origin"
+    ],
+    "form_protection": ["Rate limiting", "Honeypot", "Basic text spam filters"]
+  },
+  "content_requirements": [
+    "Clear service descriptions with typical problems solved and outcomes",
+    "Process: Assess → Plan → Install → Test → Document",
+    "Pricing cues: 'Free estimates', 'Flat-rate quotes', 'Deposits for large jobs'",
+    "Service area and response times",
+    "Before/After gallery and 3–5 case studies",
+    "FAQ per category (licensing, permits, warranties, maintenance)"
+  ],
+  "integrations": [
+    "Brevo (transactional email + lead notifications)",
+    "Cal.com/Calendly embed for booking",
+    "Stripe checkout/payment links for deposits or invoices",
+    "Google Maps (service area)"
+  ],
+  "kpis": [
+    "Booking conversions (Booking page → confirmation)",
+    "Quote form submissions",
+    "Contact form submissions",
+    "Call clicks on mobile",
+    "Time to First Byte, LCP, Lighthouse scores"
+  ],
+  "acceptance_criteria": [
+    "User can reach Booking or Quote in one click from any page.",
+    "All forms validate and send email via Brevo with confirmation to user.",
+    "Mobile nav is intuitive; sticky header with CTAs functions correctly.",
+    "Pages pass Lighthouse targets and basic WCAG checks.",
+    "Structured data validates in Rich Results Test."
+  ],
+  "roadmap": [
+    {
+      "milestone": "v1 Launch (Marketing Site + Lead Flow)",
+      "scope": [
+        "Home, Services (+8 detail pages), Booking, Quote, Projects (static), Reviews (static), About, Contact, Resources (1–2 MDX)",
+        "Brevo email integration, Booking embed, basic analytics, SEO baseline"
+      ]
+    },
+    {
+      "milestone": "v1.1 (Lead CRM Light + Deposits)",
+      "scope": [
+        "Supabase or MySQL for leads",
+        "Admin list of leads (protected route)",
+        "Stripe payment links for deposits",
+        "Projects and Reviews managed by CMS"
+      ]
+    },
+    {
+      "milestone": "v1.2 (Full CMS + Blog/Guides)",
+      "scope": [
+        "Sanity CMS for services/projects/resources",
+        "Dynamic SEO per page",
+        "Automated review import tooling (manual trigger)"
+      ]
+    }
+  ],
+  "dev_instructions": [
+    "Use TypeScript everywhere; strict mode on.",
+    "Use Tailwind with a tokens file for brand colors.",
+    "Build with shadcn/ui primitives; keep components small and composable.",
+    "Create Zod schemas for all forms; share types between UI and API routes.",
+    "Include a /config/site.ts for nav, links, social, and contact constants.",
+    "Set up Prettier/ESLint, lint-staged, simple Playwright smoke tests for forms.",
+    "Add .env.sample for BREVO_API_KEY, STRIPE_SECRET (optional), CALENDLY/CAL_URL."
+  ],
+  "content_model_files": [
+    "/data/services.json",
+    "/data/projects.json",
+    "/data/reviews.json",
+    "/data/faqs.json"
+  ],
+  "deployment": {
+    "provider": "Vercel",
+    "steps": [
+      "Connect GitHub repo",
+      "Set environment variables",
+      "Point Hostinger DNS to Vercel",
+      "Verify HTTPS, run Lighthouse check",
+      "Test all forms in production"
+    ]
+  }
+}
+
