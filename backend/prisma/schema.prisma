@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Quote {
+  id            String   @id @default(cuid())
+  name          String
+  email         String
+  phone         String
+  service       String
+  address       String
+  zip           String
+  description   String
+  budget        String?
+  preferredTime String? @map("preferred_time")
+  attachments   Json?
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@map("quotes")
+}
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Quote {
+  id            String   @id @default(uuid())
+  name          String
+  email         String
+  phone         String
+  service       String
+  address       String
+  zip           String
+  description   String
+  budget        String?
+  preferredTime String? @map("preferred_time")
+  attachments   Json?
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@map("quotes")
+}
+

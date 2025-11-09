@@ -403,6 +403,7 @@ export default function QuotePage() {
                   type="submit"
                   disabled={isSubmitting}
                   className="w-full rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/40 transition hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-70 dark:focus-visible:ring-offset-slate-950"
+                  suppressHydrationWarning
                 >
                   {isSubmitting ? 'Submitting...' : 'Send my quote request'}
                 </button>
