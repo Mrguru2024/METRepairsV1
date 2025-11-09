@@ -197,7 +197,7 @@ export default function QuotePage() {
                   Detailed information helps us deliver accurate pricing faster.
                 </p>
               </header>
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" autoComplete="off">
                 <div>
                   <label
                     className="text-sm font-medium text-slate-700 dark:text-slate-200"
@@ -210,6 +210,7 @@ export default function QuotePage() {
                     {...register('name')}
                     placeholder="Jordan Mitchell"
                     className={inputClass}
+                    suppressHydrationWarning
                   />
                   {errors.name && (
                     <p className="mt-1 text-sm text-destructive">{errors.name.message}</p>
@@ -229,6 +230,7 @@ export default function QuotePage() {
                       type="email"
                       placeholder="you@company.com"
                       className={inputClass}
+                    suppressHydrationWarning
                     />
                     {errors.email && (
                       <p className="mt-1 text-sm text-destructive">{errors.email.message}</p>
@@ -246,6 +248,7 @@ export default function QuotePage() {
                       {...register('phone')}
                       placeholder="(404) 555-0136"
                       className={inputClass}
+                    suppressHydrationWarning
                     />
                     {errors.phone && (
                       <p className="mt-1 text-sm text-destructive">{errors.phone.message}</p>
@@ -259,7 +262,7 @@ export default function QuotePage() {
                   >
                     Service needed
                   </label>
-                  <select id="service" {...register('service')} className={inputClass}>
+                <select id="service" {...register('service')} className={inputClass} suppressHydrationWarning>
                     <option value="">Select service</option>
                     <option value="LOCKSMITHING">Locksmithing</option>
                     <option value="ELECTRICAL">Electrical</option>
@@ -287,6 +290,7 @@ export default function QuotePage() {
                       {...register('address')}
                       placeholder="Street, Suite"
                       className={inputClass}
+                    suppressHydrationWarning
                     />
                     {errors.address && (
                       <p className="mt-1 text-sm text-destructive">{errors.address.message}</p>
@@ -304,6 +308,7 @@ export default function QuotePage() {
                       {...register('zip')}
                       placeholder="30303"
                       className={inputClass}
+                    suppressHydrationWarning
                     />
                     {errors.zip && (
                       <p className="mt-1 text-sm text-destructive">{errors.zip.message}</p>
@@ -323,6 +328,7 @@ export default function QuotePage() {
                     placeholder="Share the scope, timelines, existing equipment, or links to plans."
                     rows={5}
                     className={`${inputClass} min-h-[140px] resize-y`}
+                    suppressHydrationWarning
                   />
                   {errors.description && (
                     <p className="mt-1 text-sm text-destructive">{errors.description.message}</p>
@@ -340,6 +346,7 @@ export default function QuotePage() {
                     {...register('budget')}
                     className={inputClass}
                     defaultValue=""
+                    suppressHydrationWarning
                   >
                     <option value="">Select budget range</option>
                     {budgetOptions.map((option) => (
@@ -364,6 +371,7 @@ export default function QuotePage() {
                     {...register('preferredTime')}
                     className={inputClass}
                     defaultValue=""
+                    suppressHydrationWarning
                   >
                     <option value="">Select preferred time</option>
                     {preferredTimeOptions.map((option) => (
