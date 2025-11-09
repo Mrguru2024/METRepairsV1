@@ -14,30 +14,34 @@
 ## 2. Get Your Database Connection String
 
 1. In your Supabase project dashboard, go to **Settings** → **Database**
-2. Scroll down to **Connection string** section
-3. Select **URI** (not Connection Pooling)
-4. Copy the connection string
-5. It will look like: `postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres`
+2. Scroll down to **Connection Pooling** → **Transaction pooler**
+3. Copy the IPv4-compatible connection string
+4. It will look like: `postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:6543/postgres`
 
 ## 3. Update Environment Variables
 
-Add your Supabase connection string to `env.local`:
+Add your Supabase connection string to `env.local`, `env.production`, and optionally `env.sample`:
 
 ```env
-DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
+DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:6543/postgres?pgbouncer=true&sslmode=require
 ```
 
 Replace `[YOUR-PASSWORD]` and `[PROJECT-REF]` with your actual values.
 
 ## 4. Install Dependencies and Setup Database
 
-```bash
+From PowerShell (recommended on Windows), run:
+
+```powershell
 cd frontend
 npm install
+$env:DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:6543/postgres?pgbouncer=true&sslmode=require"
 npm run db:generate    # Generate Prisma client
 npm run db:push        # Create tables in Supabase
 npm run db:seed        # Create your super admin account
 ```
+
+> Tip: keep the PowerShell window open so the `DATABASE_URL` environment variable stays in scope for all commands.
 
 ## 5. Verify Setup
 
@@ -51,9 +55,15 @@ For production, create a separate Supabase project or use the same one with diff
 
 ## Connection Pooling (Optional for Production)
 
-For better performance in production, use Supabase's connection pooling:
+For better performance in production, use Supabase's connection pooling (already covered above).
 
-1. In Supabase dashboard → **Settings** → **Database**
-2. Use the **Connection Pooling** connection string (port 6543)
-3. Format: `postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres`
+## Smoke Test Utility
 
+After pushing the schema you can run a quick create/read/delete check against Supabase:
+
+```powershell
+$env:DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:6543/postgres?pgbouncer=true&sslmode=require"
+npm run smoke:booking
+```
+
+This script provisions a temporary booking, verifies it exists, and removes it so the calendar stays clean.

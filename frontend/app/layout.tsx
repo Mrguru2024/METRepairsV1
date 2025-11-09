@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import '../styles/globals.css';
 import { siteConfig } from '@/config/site';
 import HeaderNav from '@/components/HeaderNav';
@@ -9,7 +10,7 @@ export const metadata = {
   description: `${siteConfig.name} — Service & Systems Integrations`,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="bg-neutral_light text-neutral-900 dark:bg-neutral_dark dark:text-neutral_light">
       <body>

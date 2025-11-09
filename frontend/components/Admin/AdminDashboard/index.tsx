@@ -1,4 +1,5 @@
 'use client';
+import type { FormEvent } from 'react';
 import { useState, useEffect } from 'react';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
@@ -35,7 +36,7 @@ export default function AdminDashboard({ userRole }: { userRole: string }) {
     }
   }
 
-  async function handleAddUser(e: React.FormEvent) {
+  async function handleAddUser(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const res = await fetch('/api/admin/users', {
       method: 'POST',
@@ -67,10 +68,10 @@ export default function AdminDashboard({ userRole }: { userRole: string }) {
           <p className="mt-1 text-sm opacity-70">Manage users and system settings</p>
         </div>
         <div className="flex gap-3">
-          <Link href="/" className="btn px-4 py-2 border text-sm">
+          <Link href="/" className="btn border px-4 py-2 text-sm">
             Back to Site
           </Link>
-          <button onClick={() => signOut()} className="btn px-4 py-2 border text-sm">
+          <button onClick={() => signOut()} className="btn border px-4 py-2 text-sm">
             Sign Out
           </button>
         </div>

@@ -1,4 +1,5 @@
 'use client';
+/* global globalThis */
 import { useEffect, useRef } from 'react';
 
 export default function ElectricBG() {
@@ -6,27 +7,32 @@ export default function ElectricBG() {
   const mouse = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const canvasEl = ref.current;
+    if (!canvasEl) return;
+    const canvas: HTMLCanvasElement = canvasEl;
+    const rawContext = canvas.getContext('2d');
+    if (!rawContext) return;
+    const ctx: CanvasRenderingContext2D = rawContext;
 
     let raf = 0;
 
-    const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    const getDpr = () => Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    let dpr = getDpr();
     function resize() {
-      const parent = canvas.parentElement || document.body;
+      const parent = canvas.parentElement ?? document.body;
+      if (!parent) return;
       const rect = parent.getBoundingClientRect();
       const w = Math.max(1, Math.floor(rect.width));
       const h = Math.max(1, Math.floor(rect.height));
+      dpr = getDpr();
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
-      canvas.style.width = w + 'px';
-      canvas.style.height = h + 'px';
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     resize();
-    window.addEventListener('resize', resize);
+    globalThis.addEventListener('resize', resize);
 
     const sparks: { x: number; y: number; vx: number; vy: number; life: number }[] = [];
 
@@ -34,7 +40,13 @@ export default function ElectricBG() {
       for (let i = 0; i < 10; i++) {
         const a = Math.random() * Math.PI * 2;
         const s = 0.4 + Math.random() * 1.2;
-        sparks.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, life: 30 + Math.random() * 20 });
+        sparks.push({
+          x,
+          y,
+          vx: Math.cos(a) * s,
+          vy: Math.sin(a) * s,
+          life: 30 + Math.random() * 20,
+        });
       }
     }
 
@@ -143,13 +155,13 @@ export default function ElectricBG() {
     function leave() {
       mouse.current = null;
     }
-    window.addEventListener('mousemove', move);
-    window.addEventListener('mouseout', leave);
+    globalThis.addEventListener('mousemove', move);
+    globalThis.addEventListener('mouseout', leave);
 
     return () => {
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', move);
-      window.removeEventListener('mouseout', leave);
+      globalThis.removeEventListener('resize', resize);
+      globalThis.removeEventListener('mousemove', move);
+      globalThis.removeEventListener('mouseout', leave);
       cancelAnimationFrame(raf);
     };
   }, []);
@@ -158,8 +170,8 @@ export default function ElectricBG() {
     <canvas
       ref={ref}
       className="pointer-events-none absolute inset-0 z-10 opacity-80 dark:opacity-60"
+      tabIndex={-1}
       aria-hidden
     />
   );
 }
-

@@ -1,5 +1,5 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, type Transition, type Variants } from 'framer-motion';
 import Link from 'next/link';
 
 export interface HeroSectionProps {
@@ -9,26 +9,29 @@ export interface HeroSectionProps {
   secondaryHref: string;
 }
 
-const textVariants = {
+const entranceTransition = {
+  duration: 0.6,
+  ease: 'easeOut',
+} satisfies Transition;
+
+const textVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
-      ease: 'easeOut',
+      ...entranceTransition,
     },
   },
 };
 
-const videoVariants = {
+const videoVariants: Variants = {
   hidden: { opacity: 0, x: 20 },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.6,
-      ease: 'easeOut',
+      ...entranceTransition,
       delay: 0.2,
     },
   },
@@ -72,7 +75,7 @@ export default function HeroSection({
           </motion.div>
         </motion.div>
         <motion.div
-          className="aspect-video rounded-lg overflow-hidden bg-neutral-900"
+          className="aspect-video overflow-hidden rounded-lg bg-neutral-900"
           variants={videoVariants}
           initial="hidden"
           animate="visible"
@@ -83,7 +86,7 @@ export default function HeroSection({
             loop
             controls
             playsInline
-            className="h-full w-full object-cover"
+            className="size-full object-cover"
             aria-label="MET Repairs services video"
           />
         </motion.div>

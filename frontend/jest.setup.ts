@@ -1,5 +1,3 @@
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom';
+Object.assign(process.env, { NODE_ENV: 'test' });
+
 import '@testing-library/jest-dom';

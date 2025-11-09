@@ -1,5 +1,5 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, type Variants, type Transition } from 'framer-motion';
 
 export interface ServiceItem {
   title: string;
@@ -23,7 +23,7 @@ const icons: Record<string, string> = {
   'Electronic Repairs': '🔧',
 };
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -33,14 +33,18 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemTransition = {
+  duration: 0.5,
+  ease: 'easeOut',
+} satisfies Transition;
+
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
-      ease: 'easeOut',
+      ...itemTransition,
     },
   },
 };
@@ -55,7 +59,7 @@ export default function ServiceCardGrid({ items }: ServiceCardGridProps) {
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
       >
-        {items.map((item, index) => {
+        {items.map((item) => {
           const icon = item.icon || icons[item.title] || '✨';
           return (
             <motion.a

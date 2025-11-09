@@ -1,4 +1,5 @@
 'use client';
+import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -9,7 +10,7 @@ export default function LoginPage() {
   const { setMsg, Toast } = useToast();
   const [loading, setLoading] = useState(false);
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.currentTarget);

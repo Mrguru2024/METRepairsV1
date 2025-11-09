@@ -18,7 +18,9 @@ export function useAnimationPref() {
       const next = !prev;
       try {
         localStorage.setItem('animations', next ? 'on' : 'off');
-      } catch {}
+      } catch (error) {
+        console.warn('Unable to persist animation preference', error);
+      }
       return next;
     });
   }, []);

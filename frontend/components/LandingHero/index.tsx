@@ -18,9 +18,15 @@ export default function LandingHero() {
             Locksmithing, Electrical, Access Control, Security, Fire Alarm, and Data/Low Voltage — one trusted team across Metro Atlanta.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Link href="/booking" className="btn-primary px-6 py-3">Book Now</Link>
-            <Link href="/quote" className="btn-secondary px-6 py-3">Get a Quote</Link>
-            <Link href="/home" className="btn px-6 py-3 border">Enter Site</Link>
+            <Link href="/booking" className="btn-primary px-6 py-3">
+              Book Now
+            </Link>
+            <Link href="/quote" className="btn-secondary px-6 py-3">
+              Get a Quote
+            </Link>
+            <Link href="/home" className="btn border px-6 py-3">
+              Enter Site
+            </Link>
           </div>
           <p className="mt-4 text-xs opacity-60">Licensed • Insured • Transparent Pricing</p>
         </div>

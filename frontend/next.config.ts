@@ -8,8 +8,7 @@ const nextConfig: NextConfig = {
   webpack: (config, { dev }) => {
     if (dev) {
       // Avoid flaky pack file cache errors on Windows
-      // @ts-expect-error - config.cache exists in webpack
-      config.cache = false;
+      Object.assign(config, { cache: false });
     }
     return config;
   },
